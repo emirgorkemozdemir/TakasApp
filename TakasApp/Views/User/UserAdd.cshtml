@@ -1,0 +1,17 @@
+﻿@using TakasApp.Models
+@model TableUser
+
+@{
+    ViewBag.Title = "UserAdd";
+}
+
+<h2>UserAdd</h2>
+
+@Html.BeginForm("UserAdd", "User", FormMethod.Post)
+
+{
+@Html.ValidationMessageFor(m => m.UserName)
+@Html.TextBoxFor(m => m.UserName)
+@Html.ValidationMessageFor(m => m.UserPassword)
+@Html.PasswordFor(m => m.UserPassword)
+<input type="submit" value="Kayıt Ol" />

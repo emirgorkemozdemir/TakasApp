@@ -1,0 +1,16 @@
+﻿@using TakasApp.Models
+@model TableUser
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@Html.BeginForm("Login", "User", FormMethod.Post)
+{
+@Html.ValidationMessageFor(m => m.UserName)
+@Html.TextBoxFor(m => m.UserName)
+@Html.ValidationMessageFor(m => m.UserPassword)
+@Html.PasswordFor(m => m.UserPassword)
+<input type="submit" value="Giriş Yap" />
+}
