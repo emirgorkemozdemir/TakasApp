@@ -1,17 +1,41 @@
-﻿@using TakasApp.Models
-@model TableUser
+﻿@model TakasApp.Models.TableUser
 
 @{
-    ViewBag.Title = "UserAdd";
+    ViewBag.Title = "Kayıt Ol";
 }
 
-<h2>UserAdd</h2>
+<h2>Kayıt Ol</h2>
 
-@Html.BeginForm("UserAdd", "User", FormMethod.Post)
-
+@using (Html.BeginForm("UserAdd", "User", FormMethod.Post))
 {
-@Html.ValidationMessageFor(m => m.UserName)
-@Html.TextBoxFor(m => m.UserName)
-@Html.ValidationMessageFor(m => m.UserPassword)
-@Html.PasswordFor(m => m.UserPassword)
-<input type="submit" value="Kayıt Ol" />
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserName)
+        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UserName, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserEmail)
+        @Html.TextBoxFor(m => m.UserEmail, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UserEmail, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.UserPassword)
+        @Html.PasswordFor(m => m.UserPassword, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.UserPassword, "", new { @class = "text-danger" })
+    </div>
+
+    <div>
+        <input type="submit" value="Kayıt Ol" class="btn btn-primary" />
+    </div>
+
+    if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <p style="color: green;">@ViewBag.Message</p>
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

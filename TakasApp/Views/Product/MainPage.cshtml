@@ -1,0 +1,25 @@
+﻿@using TakasApp.Models
+@model List<TableProduct>
+@{
+    ViewBag.Title = "MainPage";
+}
+
+<div>
+    <h2>Ürünler</h2>
+    <ul>
+        @foreach (var product in Model)
+        {
+            <li>@product.ProductTitle</li>
+            <li>@product.ProductCity</li>
+            <li>@product.ProductAddDate</li>
+            <li>@product.ProductUser</li>
+            <li>@product.ProductPhotoURLS</li>
+            <li>@product.ProductDescription</li>
+            <strong>Fiyat: @product.ProductPrice ₺</strong>
+            <li>
+                <a class="btn btn-danger" href="@Url.Action("ProductsToOffer","Offer")">Takas Teklif Et</a>
+            </li>
+            
+        }
+    </ul>
+</div>

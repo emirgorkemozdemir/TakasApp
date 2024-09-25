@@ -5,6 +5,29 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="TakasDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TableOffer">
+          <Key>
+            <PropertyRef Name="OfferID" />
+          </Key>
+          <Property Name="OfferID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OfferSenderID" Type="int" Nullable="false" />
+          <Property Name="OfferRecieverID" Type="int" Nullable="false" />
+          <Property Name="OfferProductID1" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="OfferProductID2" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TableProduct">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductTitle" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ProductCity" Type="int" Nullable="false" />
+          <Property Name="ProductPrice" Type="int" Nullable="false" />
+          <Property Name="ProductAddDate" Type="datetime" Nullable="false" />
+          <Property Name="ProductUser" Type="int" Nullable="false" />
+          <Property Name="ProductPhotoURLS" Type="nvarchar(max)" />
+          <Property Name="ProductDescription" Type="nvarchar" MaxLength="300" />
+        </EntityType>
         <EntityType Name="TableUser">
           <Key>
             <PropertyRef Name="UserID" />
@@ -13,8 +36,11 @@
           <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="UserPassword" Type="nvarchar" MaxLength="64" Nullable="false" />
           <Property Name="UserRegisterDate" Type="date" Nullable="false" />
+          <Property Name="UserEmail" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityContainer Name="TakasDBModelStoreContainer">
+          <EntitySet Name="TableOffer" EntityType="Self.TableOffer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TableProduct" EntityType="Self.TableProduct" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TableUser" EntityType="Self.TableUser" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema>
@@ -22,6 +48,29 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TakasDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TableOffer">
+          <Key>
+            <PropertyRef Name="OfferID" />
+          </Key>
+          <Property Name="OfferID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OfferSenderID" Type="Int32" Nullable="false" />
+          <Property Name="OfferRecieverID" Type="Int32" Nullable="false" />
+          <Property Name="OfferProductID1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="OfferProductID2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TableProduct">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProductCity" Type="Int32" Nullable="false" />
+          <Property Name="ProductPrice" Type="Int32" Nullable="false" />
+          <Property Name="ProductAddDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ProductUser" Type="Int32" Nullable="false" />
+          <Property Name="ProductPhotoURLS" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ProductDescription" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="TableUser">
           <Key>
             <PropertyRef Name="UserID" />
@@ -30,8 +79,11 @@
           <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserPassword" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="UserRegisterDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UserEmail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="TakasDBEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="TakasDBEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="TableOffer" EntityType="Self.TableOffer" />
+          <EntitySet Name="TableProduct" EntityType="Self.TableProduct" />
           <EntitySet Name="TableUser" EntityType="Self.TableUser" />
         </EntityContainer>
       </Schema>
@@ -39,7 +91,32 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="TakasDBModelStoreContainer" CdmEntityContainer="TakasDBEntities">
+        <EntityContainerMapping StorageEntityContainer="TakasDBModelStoreContainer" CdmEntityContainer="TakasDBEntities2">
+          <EntitySetMapping Name="TableOffer">
+            <EntityTypeMapping TypeName="TakasDBModel.TableOffer">
+              <MappingFragment StoreEntitySet="TableOffer">
+                <ScalarProperty Name="OfferID" ColumnName="OfferID" />
+                <ScalarProperty Name="OfferSenderID" ColumnName="OfferSenderID" />
+                <ScalarProperty Name="OfferRecieverID" ColumnName="OfferRecieverID" />
+                <ScalarProperty Name="OfferProductID1" ColumnName="OfferProductID1" />
+                <ScalarProperty Name="OfferProductID2" ColumnName="OfferProductID2" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TableProduct">
+            <EntityTypeMapping TypeName="TakasDBModel.TableProduct">
+              <MappingFragment StoreEntitySet="TableProduct">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductTitle" ColumnName="ProductTitle" />
+                <ScalarProperty Name="ProductCity" ColumnName="ProductCity" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="ProductAddDate" ColumnName="ProductAddDate" />
+                <ScalarProperty Name="ProductUser" ColumnName="ProductUser" />
+                <ScalarProperty Name="ProductPhotoURLS" ColumnName="ProductPhotoURLS" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TableUser">
             <EntityTypeMapping TypeName="TakasDBModel.TableUser">
               <MappingFragment StoreEntitySet="TableUser">
@@ -47,6 +124,7 @@
                 <ScalarProperty Name="UserName" ColumnName="UserName" />
                 <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
                 <ScalarProperty Name="UserRegisterDate" ColumnName="UserRegisterDate" />
+                <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

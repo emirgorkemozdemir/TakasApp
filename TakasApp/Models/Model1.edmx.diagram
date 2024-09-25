@@ -4,8 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="0ad5b9ddf5564faead2abfbe84b7ff77" Name="Diagram1">
-        <EntityTypeShape EntityType="TakasDBModel.TableUser" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+      <Diagram DiagramId="fdb80e65b60e4409a8f98c1d0f342111" Name="Diagram1">
+        <EntityTypeShape EntityType="TakasDBModel.TableOffer" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TakasDBModel.TableProduct" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TakasDBModel.TableUser" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

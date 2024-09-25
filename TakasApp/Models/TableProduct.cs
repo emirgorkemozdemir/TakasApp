@@ -12,12 +12,15 @@ namespace TakasApp.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TableUser
+    public partial class TableProduct
     {
-        public int UserID { get; set; }
-        public string UserName { get; set; }
-        public string UserPassword { get; set; }
-        public System.DateTime UserRegisterDate { get; set; }
-        public string UserEmail { get; set; }
+        public int ProductID { get; set; }
+        public string ProductTitle { get; set; }
+        public int ProductCity { get; set; }
+        public int ProductPrice { get; set; }
+        public System.DateTime ProductAddDate { get; set; }
+        public int ProductUser { get; set; }
+        public string ProductPhotoURLS { get; set; }
+        public string ProductDescription { get; set; }
     }
 }

@@ -13,10 +13,10 @@ namespace TakasApp.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class TakasDBEntities : DbContext
+    public partial class TakasDBEntities2 : DbContext
     {
-        public TakasDBEntities()
-            : base("name=TakasDBEntities")
+        public TakasDBEntities2()
+            : base("name=TakasDBEntities2")
         {
         }
     
@@ -25,6 +25,8 @@ namespace TakasApp.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<TableOffer> TableOffer { get; set; }
+        public virtual DbSet<TableProduct> TableProduct { get; set; }
         public virtual DbSet<TableUser> TableUser { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace TakasApp.Controllers
 {
     public class UserController : Controller
     {
-        TakasDBEntities db = new TakasDBEntities();
+        TakasDBEntities2 db = new TakasDBEntities2();
 
         [HttpGet]
         public ActionResult UserAdd()
@@ -31,6 +31,7 @@ namespace TakasApp.Controllers
             return RedirectToAction("Login");
         }
 
+
         [HttpGet]
         public ActionResult Login()
         {
@@ -49,12 +50,12 @@ namespace TakasApp.Controllers
             }
             else
             {
-                return RedirectToAction("MainPage");
+                Session["LoggedUserID"] = logged_user.UserID;
+                return RedirectToAction("MainPage","Product");
             }   
           
         }
 
-        // Register yapan ekip : şifre kayıt olurken sha256 kullanılarak şifrelenip gönderilmeli
-        // Login : Gelen şifre sha256 oldugu için, girilen şifreyi de dönüştürüp kontrol etmeniz lazm.
+        
     }
 }

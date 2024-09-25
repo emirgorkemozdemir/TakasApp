@@ -129,6 +129,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Sha256Compute.cs" />
+    <Compile Include="Controllers\OfferController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -147,6 +149,12 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Model1.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TableOffer.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\TableProduct.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TableUser.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -175,8 +183,8 @@
     <Content Include="Content\Site.css" />
     <Content Include="Models\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>Model1.Context.cs</LastGenOutput>
       <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Models\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -220,6 +228,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\User\UserAdd.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Product\MainPage.cshtml" />
+    <Content Include="Views\Offer\ProductsToOffer.cshtml" />
+    <Content Include="Views\Product\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

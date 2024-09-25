@@ -1,0 +1,48 @@
+﻿@using TakasApp.Models
+@model TableProduct
+@{
+    ViewBag.Title = "Ürün Ekle";
+}
+
+<h2>Ürün Ekle</h2>
+
+@if (TempData["Message"] != null)
+{
+    <p style="color: green;">@TempData["Message"]</p> <!-- Ürün başarıyla eklendi mesajı -->
+}
+
+@using (Html.BeginForm("Add", "Product", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductTitle)
+        @Html.TextBoxFor(m => m.ProductTitle, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ProductTitle, "", new { @class = "text-danger" }) <!-- Hata mesajları burada -->
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductCity)
+        @Html.TextBoxFor(m => m.ProductCity, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ProductCity, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductPrice)
+        @Html.TextBoxFor(m => m.ProductPrice, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ProductPrice, "", new { @class = "text-danger" })
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductDescription)
+        @Html.TextAreaFor(m => m.ProductDescription, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ProductDescription, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.ProductPhotoURLS)
+        @Html.TextBoxFor(m => m.ProductPhotoURLS, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.ProductPhotoURLS, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ürün Ekle</button>
+}
