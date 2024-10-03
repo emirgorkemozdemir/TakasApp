@@ -11,13 +11,20 @@ namespace TakasApp.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TableUser
     {
         public int UserID { get; set; }
+
+        [Required(ErrorMessage ="Uyarý mesajý!!!")]
         public string UserName { get; set; }
+
+        [Required]
         public string UserPassword { get; set; }
         public System.DateTime UserRegisterDate { get; set; }
+
+        [Required]
         public string UserEmail { get; set; }
     }
 }

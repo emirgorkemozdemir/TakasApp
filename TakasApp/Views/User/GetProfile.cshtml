@@ -1,0 +1,12 @@
+﻿@model TakasApp.Models.TableUser
+@{
+    ViewBag.Title = "Profil";
+}
+
+<h2>My Profile</h2>
+
+<div>@Model.UserName</div>
+<div>@Model.UserEmail</div>
+<div>@Model.UserRegisterDate</div>
+
+<a href="@Url.Action("ListUsersProducts", "User", new { userId = Model.UserID })">Ürünlerini Göster</a>

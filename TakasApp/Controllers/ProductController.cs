@@ -49,5 +49,20 @@ namespace TakasApp.Controllers
             // Form geçerli değilse formu tekrar göster
             return View(product);
         }
+
+        public ActionResult GetProduct(int productId)
+        {
+            // Veritabanından ürün bilgisi getirilir
+            var product = db.TableProduct.Find(productId);
+
+            // Ürün bulunamadıysa, bir hata sayfası veya "Not Found" döndürülebilir
+            if (product == null)
+            {
+                return HttpNotFound();
+            }
+
+            // Ürünü View ile döndür
+            return View(product);
+        }
     }
 }

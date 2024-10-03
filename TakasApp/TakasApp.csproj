@@ -135,6 +135,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CustomOfferModel.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -178,6 +179,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\testcss.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -231,6 +233,11 @@
     <Content Include="Views\Product\MainPage.cshtml" />
     <Content Include="Views\Offer\ProductsToOffer.cshtml" />
     <Content Include="Views\Product\Add.cshtml" />
+    <Content Include="Views\User\Myprofile.cshtml" />
+    <Content Include="Views\User\ListMyProducts.cshtml" />
+    <Content Include="Views\User\GetProfile.cshtml" />
+    <Content Include="Views\User\ListUsersProducts.cshtml" />
+    <Content Include="Views\Product\GetProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

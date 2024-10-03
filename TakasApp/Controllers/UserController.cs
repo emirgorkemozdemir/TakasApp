@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 using TakasApp.App_Start;
 using TakasApp.Models;
@@ -23,8 +24,7 @@ namespace TakasApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                registered_user.UserRegisterDate=DateTime.Now.Date;
-                registered_user.UserPassword = Sha256Compute.ComputeSha256Hash(registered_user.UserPassword);
+                registered_user.UserRegisterDate = DateTime.Now;
                 db.TableUser.Add(registered_user);
                 db.SaveChanges();
             }
@@ -42,20 +42,68 @@ namespace TakasApp.Controllers
         public ActionResult Login(TableUser selected_user)
         {
             string hashed_password = Sha256Compute.ComputeSha256Hash(selected_user.UserPassword);
-            var logged_user= db.TableUser.Where(u => u.UserName == selected_user.UserName && u.UserPassword == hashed_password).SingleOrDefault();
+            var logged_user = db.TableUser.Where(u => u.UserName == selected_user.UserName && u.UserPassword == hashed_password).SingleOrDefault();
 
-            if (logged_user==null)
+            if (logged_user == null)
             {
                 return RedirectToAction("Login");
             }
             else
             {
                 Session["LoggedUserID"] = logged_user.UserID;
-                return RedirectToAction("MainPage","Product");
-            }   
-          
+                // Bir tane daha session açın, kullanıcnın online oldugunu göstersin. 
+                // true tutun.
+                return RedirectToAction("MainPage", "Product");
+            }
         }
 
-        
+
+        [HttpGet]
+        public ActionResult Myprofile()
+        {
+            int myid = Convert.ToInt32(Session["loggeduserID"]);
+            var selected_user = db.TableUser.Find(myid);
+            return View(selected_user);
+        }
+
+        [HttpGet]
+        public ActionResult GetProfile(int user_id)
+        {
+            var selected_user = db.TableUser.Find(user_id);
+            return View(selected_user);
+        }
+
+        [HttpGet]
+        public ActionResult ListMyProducts()
+        {
+            int userId = Convert.ToInt32(Session["UserID"]);
+
+            List<TableProduct> product_list = db.TableProduct.Where(p => p.ProductUser == userId).ToList();
+
+            return View(product_list);
+        }
+
+
+        [HttpGet]
+        public ActionResult ListUsersProducts(int userId)
+        {
+
+            List<TableProduct> product_list = db.TableProduct.Where(p => p.ProductUser == userId).ToList();
+
+            return View(product_list);
+        }
+
+
+        [HttpGet]
+        public ActionResult DeleteProduct(int pid)
+        {
+            var productForDelete = db.TableProduct.Find(pid);
+
+            db.TableProduct.Remove(productForDelete);
+            db.SaveChanges();
+
+            return RedirectToAction("ListMyProducts");
+        }
     }
+
 }

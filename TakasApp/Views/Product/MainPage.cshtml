@@ -4,6 +4,8 @@
     ViewBag.Title = "MainPage";
 }
 
+<a href="@Url.Action("Myprofile","User")">Profilimi Görüntüle</a>
+
 <div>
     <h2>Ürünler</h2>
     <ul>
@@ -12,12 +14,18 @@
             <li>@product.ProductTitle</li>
             <li>@product.ProductCity</li>
             <li>@product.ProductAddDate</li>
-            <li>@product.ProductUser</li>
+            <li><a class="btn btn-danger" href="@Url.Action("GetProfile","User",new { user_id=product.ProductUser })">Profili Göster </a></li> // ProductUser'ı GetProfile action'ına gönderin. Url.action kullanarak
             <li>@product.ProductPhotoURLS</li>
             <li>@product.ProductDescription</li>
             <strong>Fiyat: @product.ProductPrice ₺</strong>
+            @product.ProductID
             <li>
-                <a class="btn btn-danger" href="@Url.Action("ProductsToOffer","Offer")">Takas Teklif Et</a>
+                <a class="btn btn-danger" href="@Url.Action("ProductsToOffer","Offer",
+                                               new {productID=product.ProductID, productUser=product.ProductUser})">Takas Teklif Et</a>
+            </li>
+
+            <li>
+                <a href="@Url.Action("GetProduct","Product",new {productId=product.ProductID})">Ürün Detaylarını Görüntüle</a>
             </li>
             
         }

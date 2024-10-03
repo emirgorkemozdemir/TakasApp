@@ -1,0 +1,36 @@
+﻿@using TakasApp.Models
+@model List<TableProduct>
+@{
+    ViewBag.Title = "ListMyProducts";
+}
+
+<h2>My Products</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Ürün Başlıgı</th>
+            <th>Ürün Tahmini Fiyatı</th>
+            <th>Ürünün Bulundugu Şehir</th>
+            <th>Ürünün Açıklaması</th>
+            <th>Ürünü Sil</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>
+                    <a href="@Url.Action("GetProduct","Product",new {productId=product.ProductID})">@product.ProductTitle</a>
+                </td>
+                <td>@product.ProductPrice</td>
+                <td>@product.ProductCity</td>
+                <td>@product.ProductDescription</td>
+                <td>
+                    <a class="btn btn-danger" href="@Url.Action("DeleteProduct","User", new {pid = product.ProductID})">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

@@ -1,5 +1,5 @@
 ﻿@using TakasApp.Models
-@model List<TableProduct>
+@model CustomOfferModel
 
     @{
         ViewBag.Title = "Offer";
@@ -9,7 +9,7 @@
 
     <body>
         <ul>
-            @foreach (var product in Model)
+            @foreach (var product in Model.ProductList)
             {
                 <li>@product.ProductTitle</li>
                 <li>@product.ProductCity</li>
@@ -18,7 +18,8 @@
                 <li>@product.ProductPhotoURLS</li>
                 <li>@product.ProductDescription</li>
                 <strong>Fiyat: @product.ProductPrice ₺</strong>
-
+                 
+                <a href="@Url.Action("MakeOffer","Offer", new {givenid=product.ProductID, user=Model.ProductUser,takenid=Model.ProductID})">Ürününü Teklif Et</a>
             }
         </ul>
 
