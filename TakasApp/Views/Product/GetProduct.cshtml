@@ -6,6 +6,37 @@
 
 <h2>GetProduct</h2>
 
-Ürün detaylarını yazdırabilirsiniz
-@Model.ProductTitle
-@Model.ProductPrice
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Ürün Detayları</h2>
+
+    <div class="card h-100">
+        <!-- Ürün Fotoğrafı -->
+        @if (!string.IsNullOrEmpty(Model.ProductPhotoURLS))
+        {
+            <img src="@Model.ProductPhotoURLS" class="card-img-top" alt="Ürün Fotoğrafı" style="height: 300px; object-fit: cover;">
+        }
+        else
+        {
+            <img src="~/Content/Images/no-image.png" class="card-img-top" alt="Fotoğraf Yok" style="height: 300px; object-fit: cover;">
+        }
+
+        <!-- Ürün Bilgileri -->
+        <div class="card-body">
+            <h5 class="card-title">@Model.ProductTitle</h5>
+            <p class="card-text">
+                <strong>Şehir:</strong> @Model.ProductCity <br />
+                <strong>Ekleme Tarihi:</strong> @Model.ProductAddDate.ToShortDateString() <br />
+                <strong>Ekleyen Kullanıcı:</strong> @Model.ProductUser <br />
+                <strong>Açıklama:</strong> @Model.ProductDescription
+            </p>
+            <p class="card-text">
+                <strong>Fiyat: @Model.ProductPrice ₺</strong>
+            </p>
+        </div>
+
+        <!-- Takas Teklifi Butonu -->
+        <div class="card-footer text-center">
+            <a class="btn btn-primary btn-block" href="@Url.Action("ProductsToOffer", "Offer", new { productID = Model.ProductID, productUser = Model.ProductUser })">Takas Teklif Et</a>
+        </div>
+    </div>
+</div>

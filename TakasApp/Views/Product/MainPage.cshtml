@@ -4,7 +4,17 @@
     ViewBag.Title = "MainPage";
 }
 
-<a href="@Url.Action("Myprofile","User")">Profilimi Görüntüle</a>
+@Html.TextBox("tboxSearch", null, new { id = "tboxSearch" })
+<a href="javascript:void(0);" onclick="searchProduct()">Search</a>
+
+@if (Convert.ToBoolean(Session["IsUserLogged"]) == true)
+{
+    <a href="@Url.Action("Myprofile","User")">Profilimi Görüntüle</a>
+
+    <a href="@Url.Action("Logout","User")">Çıkış Yap</a>
+}
+
+
 
 <div>
     <h2>Ürünler</h2>
@@ -14,20 +24,46 @@
             <li>@product.ProductTitle</li>
             <li>@product.ProductCity</li>
             <li>@product.ProductAddDate</li>
-            <li><a class="btn btn-danger" href="@Url.Action("GetProfile","User",new { user_id=product.ProductUser })">Profili Göster </a></li> // ProductUser'ı GetProfile action'ına gönderin. Url.action kullanarak
+            <li><a class="btn btn-danger" href="@Url.Action("GetProfile","User",new { user_id=product.ProductUser })">Profili Göster </a></li>
+            // ProductUser'ı GetProfile action'ına gönderin. Url.action kullanarak
             <li>@product.ProductPhotoURLS</li>
             <li>@product.ProductDescription</li>
             <strong>Fiyat: @product.ProductPrice ₺</strong>
             @product.ProductID
-            <li>
-                <a class="btn btn-danger" href="@Url.Action("ProductsToOffer","Offer",
-                                               new {productID=product.ProductID, productUser=product.ProductUser})">Takas Teklif Et</a>
-            </li>
+    <li>
+
+        @{
+
+        if (Convert.ToBoolean(Session["IsUserLogged"]) == true)
+        {
+        <a class="btn btn-danger" href="@Url.Action("ProductsToOffer","Offer",
+                              new {productID=product.ProductID, productUser=product.ProductUser})">Takas Teklif Et</a>
+            }
+            else
+                {
+                    <div>Teklif verebilmek için giriş yapınız</div>
+                }
+
+        }
+
+
+
+
+    </li>
 
             <li>
                 <a href="@Url.Action("GetProduct","Product",new {productId=product.ProductID})">Ürün Detaylarını Görüntüle</a>
             </li>
-            
+
         }
     </ul>
 </div>
+
+
+<script>
+    function searchProduct() {
+        var searchText = document.getElementById("tboxSearch").value;
+        var url = '@Url.Action("SearchProduct", "Product")' + '?text=' + encodeURIComponent(searchText);
+        window.location.href = url;
+    }
+</script>

@@ -64,5 +64,16 @@ namespace TakasApp.Controllers
             // Ürünü View ile döndür
             return View(product);
         }
+
+        public ActionResult SearchProduct(string text)
+        {
+            int user_id = Convert.ToInt32(Session["LoggedUserID"]);
+            int il_plakası = 33;
+            // sessiondan giriş yapan kişinin idsini alın, benim id degerim product user ile aynı olmasın
+            var products = db.TableProduct
+                             .Where(p => (p.ProductTitle.ToLower().Contains(text.ToLower()) || p.ProductDescription.ToLower().Contains(text.ToLower()))
+                                         && p.ProductCity == il_plakası &&p.ProductUser != user_id).Take(30).ToList();
+            return View(products);
+        }
     }
 }

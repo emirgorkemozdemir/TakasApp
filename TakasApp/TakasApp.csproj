@@ -238,6 +238,7 @@
     <Content Include="Views\User\GetProfile.cshtml" />
     <Content Include="Views\User\ListUsersProducts.cshtml" />
     <Content Include="Views\Product\GetProduct.cshtml" />
+    <Content Include="Views\Product\SearchProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

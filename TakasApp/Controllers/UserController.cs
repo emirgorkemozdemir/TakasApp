@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.Mvc;
+using System.Web.Security;
 using TakasApp.App_Start;
 using TakasApp.Models;
 
@@ -51,8 +52,7 @@ namespace TakasApp.Controllers
             else
             {
                 Session["LoggedUserID"] = logged_user.UserID;
-                // Bir tane daha session açın, kullanıcnın online oldugunu göstersin. 
-                // true tutun.
+                Session["IsUserLogged"] = true;
                 return RedirectToAction("MainPage", "Product");
             }
         }
@@ -61,36 +61,67 @@ namespace TakasApp.Controllers
         [HttpGet]
         public ActionResult Myprofile()
         {
-            int myid = Convert.ToInt32(Session["loggeduserID"]);
-            var selected_user = db.TableUser.Find(myid);
-            return View(selected_user);
+            if (Convert.ToBoolean(Session["LoggedUserID"]) == true)
+            {
+                int myid = Convert.ToInt32(Session["loggeduserID"]);
+                var selected_user = db.TableUser.Find(myid);
+                return View(selected_user);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
         }
 
         [HttpGet]
         public ActionResult GetProfile(int user_id)
         {
-            var selected_user = db.TableUser.Find(user_id);
-            return View(selected_user);
+            if (Convert.ToBoolean(Session["LoggedUserID"]) == true)
+            {
+                var selected_user = db.TableUser.Find(user_id);
+                return View(selected_user);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+         
         }
 
         [HttpGet]
         public ActionResult ListMyProducts()
         {
-            int userId = Convert.ToInt32(Session["UserID"]);
 
-            List<TableProduct> product_list = db.TableProduct.Where(p => p.ProductUser == userId).ToList();
+            if (Convert.ToBoolean(Session["LoggedUserID"]) == true)
+            {
+                int userId = Convert.ToInt32(Session["UserID"]);
 
-            return View(product_list);
+                List<TableProduct> product_list = db.TableProduct.Where(p => p.ProductUser == userId).ToList();
+
+                return View(product_list);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+         
         }
 
 
         [HttpGet]
         public ActionResult ListUsersProducts(int userId)
         {
+            if (Convert.ToBoolean(Session["LoggedUserID"]) == true)
+            {
+                List<TableProduct> product_list = db.TableProduct.Where(p => p.ProductUser == userId).ToList();
 
-            List<TableProduct> product_list = db.TableProduct.Where(p => p.ProductUser == userId).ToList();
-
-            return View(product_list);
+                return View(product_list);
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+           
         }
 
 
@@ -103,6 +134,14 @@ namespace TakasApp.Controllers
             db.SaveChanges();
 
             return RedirectToAction("ListMyProducts");
+        }
+
+        [HttpGet]
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("Login");
         }
     }
 
